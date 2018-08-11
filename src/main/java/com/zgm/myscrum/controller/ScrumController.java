@@ -15,7 +15,7 @@ public class ScrumController {
     private ScrumService service;
     @RequestMapping("/hello")
     public String sayHello(){
-        return "你好，微信小程序！";
+        return "你好，微信小程序！测试一些jenkins好不好用哟。";
     }
     @RequestMapping("/selectScrums")
     public JSONObject selectScrums(@RequestParam("nickName") String nickName){
