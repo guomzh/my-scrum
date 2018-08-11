@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgm.myscrum.dao.ScrumMapper">
+    <resultMap id="scrumMap" type="scrum">
+        <result column="fid" jdbcType="BIGINT" property="id"/>
+        <result column="task" jdbcType="VARCHAR" property="task"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="lastModifyTime" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="nickName" jdbcType="VARCHAR" property="nickName"/>
+    </resultMap>
+    <select id="select" resultMap="scrumMap">
+       select * from t_scrum
+       where nickName=#{nickName}
+       order by createTime desc
+       limit 50
+    </select>
+    <select id="selectById" parameterType="java.lang.Long" resultMap="scrumMap">
+        select * from t_scrum
+        where fid=#{id}
+    </select>
+    <update id="update" parameterType="scrum" >
+        update t_scrum
+        <set>
+            <if test="task != null">task=#{task},</if>
+            <if test="status!=null">status=#{status}</if>
+        </set>
+    </update>
+    <insert id="insert" parameterType="scrum" useGeneratedKeys="true" keyProperty="id">
+        insert into t_scrum
+        (task,createTime,lastModifyTime,status,nickName)
+        values (#{task},now(),now(),1,#{nickName})
+    </insert>
+    <delete id="delete">
+        delete from t_scrum
+        where fid=#{id} and  nickName=#{nickName}
+    </delete>
+    <update id="change">
+        update t_scrum
+        <set>
+            status = #{status}
+        </set>
+        where fid=#{id} and nickName=#{nickName}
+    </update>
+</mapper>
