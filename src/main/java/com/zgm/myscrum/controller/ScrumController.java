@@ -15,7 +15,10 @@ public class ScrumController {
     private ScrumService service;
     @RequestMapping("/hello")
     public String sayHello(){
-        return "你好，微信小程序！测试一些jenkins好不好用哟。";
+        return "你好，微信小程序！" +
+                "\n测试一些jenkins好不好用哟。" +
+                "\n服务器上的Jenkins所在的tomcat的关闭监听端口改为了6000" +
+                "\nJenkins不会因为其他tomcat的关闭而自杀啦！";
     }
     @RequestMapping("/selectScrums")
     public JSONObject selectScrums(@RequestParam("nickName") String nickName){
